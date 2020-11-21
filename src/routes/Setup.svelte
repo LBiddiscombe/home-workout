@@ -25,8 +25,9 @@
   <ButtonGroup title="Exercises" items={counts} bind:selected={count} />
   <ButtonGroup title="Activity Focus" items={focuses} bind:selected={focus} />
 
-  <button
+  <a
+    href="#/preview"
     on:click={handleClick}
-    class="grid w-full h-16 mx-auto my-6 text-2xl font-bold text-white bg-gray-800 rounded-lg shadow-lg place-content-center">Get
-    the Exercise Plan</button>
+    class="grid w-full h-16 mx-auto my-6 text-2xl font-bold text-white bg-gray-800 rounded-lg shadow-lg hover:nounderl place-content-center hover:no-underline visited:text-whit">Get
+    the Exercise Plan</a>
 </div>
