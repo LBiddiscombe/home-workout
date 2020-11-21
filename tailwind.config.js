@@ -1,3 +1,8 @@
 module.exports = {
-  purge: ["./src/**/*.svelte"],
-};
+  purge: ['./src/**/*.svelte'],
+  variants: {
+    extend: {
+      textColor: ['visited'],
+    },
+  },
+}
