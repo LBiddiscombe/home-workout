@@ -1,5 +1,4 @@
 <script>
-  import { state } from '../stores/state'
   import { people, duration, rest, count, focus } from '../stores/workout'
 </script>
 
@@ -60,6 +59,5 @@
   </ul>
 
   <button
-    on:click={() => state.set('setup')}
     class="grid w-full h-16 mx-auto my-6 text-2xl font-bold text-white bg-gray-800 rounded-lg shadow-lg place-content-center">Back</button>
 </div>

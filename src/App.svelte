@@ -1,7 +1,7 @@
 <script>
-  import { state } from './stores/state'
-  import Preview from './pages/Preview.svelte'
-  import Setup from './pages/Setup.svelte'
+  import Router from 'svelte-spa-router'
+  import routes from './routes'
+  import { location } from 'svelte-spa-router'
 </script>
 
 <style global>
@@ -13,11 +13,7 @@
   @tailwind utilities;
 </style>
 
+<p>The current page is: {$location}</p>
 <main>
-  {#if $state === 'setup'}
-    <Setup />
-  {/if}
-  {#if $state === 'preview'}
-    <Preview />
-  {/if}
+  <Router {routes} />
 </main>

@@ -2,7 +2,6 @@
   import ButtonGroup from '../components/ButtonGroup.svelte'
   import ButtonGroupMulti from '../components/ButtonGroupMulti.svelte'
   import { durations, rests, counts, focuses, people } from '../data/options'
-  import { state } from '../stores/state'
 
   let participants = [],
     duration = 40,
@@ -13,7 +12,6 @@
   let initials = people.map((p) => p.initials)
 
   const handleClick = () => {
-    $state = 'preview'
     //console.log(people, duration, rest, count, focus)
     //alert(`${people} hitting ${count} stations for ${duration} seconds with ${rest} seconds rest.`)
   }
