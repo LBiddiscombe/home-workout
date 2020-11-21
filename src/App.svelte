@@ -1,5 +1,7 @@
 <script>
-  export let name;
+  import { state } from './stores/state'
+  import Preview from './pages/Preview.svelte'
+  import Setup from './pages/Setup.svelte'
 </script>
 
 <style global>
@@ -12,9 +14,10 @@
 </style>
 
 <main>
-  <h1>Hello {name}!</h1>
-  <p class="p-2">
-    Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn
-    how to build Svelte apps.
-  </p>
+  {#if $state === 'setup'}
+    <Setup />
+  {/if}
+  {#if $state === 'preview'}
+    <Preview />
+  {/if}
 </main>
