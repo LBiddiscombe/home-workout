@@ -1,15 +1,8 @@
 <script>
-  // your script goes here
+  import PrimaryLink from '../components/PrimaryLink.svelte'
+  import SecondaryLink from '../components/SecondaryLink.svelte'
 </script>
 
-<div class="container h-full max-w-xl px-4 mx-auto overflow-y-auto">
-  <h1 class="mb-2 text-4xl">Home Workout</h1>
-  <a
-    href="#/setup"
-    class="grid w-full h-16 mx-auto my-6 text-2xl font-bold text-white bg-gray-800 rounded-lg shadow-lg hover:nounderl place-content-center hover:no-underline visited:text-whit">Start</a>
-
-  <a
-    href="#/history"
-    class="grid w-full h-16 mx-auto my-6 text-2xl font-bold text-white bg-gray-800 rounded-lg shadow-lg hover:nounderl place-content-center hover:no-underline visited:text-whit">View
-    History</a>
-</div>
+<PrimaryLink href="#/setup">Start Workout</PrimaryLink>
+<SecondaryLink href="#/exercises">View Exercises</SecondaryLink>
+<SecondaryLink href="#/history">View History</SecondaryLink>

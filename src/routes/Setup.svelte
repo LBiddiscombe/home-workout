@@ -1,33 +1,55 @@
 <script>
-  import ButtonGroup from '../components/ButtonGroup.svelte'
-  import ButtonGroupMulti from '../components/ButtonGroupMulti.svelte'
+  import HorizontalGroup from '../components/HorizontalGroup.svelte'
+  import PrimaryLink from '../components/PrimaryLink.svelte'
+  import SecondaryLink from '../components/SecondaryLink.svelte'
   import { durations, rests, counts, focuses, people } from '../data/options'
+  import { participants, duration, rest, count, focus } from '../stores/workout'
 
-  let participants = [],
-    duration = 40,
-    rest = 20,
-    count = 10,
-    focus = focuses[0]
-
-  let initials = people.map((p) => p.initials)
-
-  const handleClick = () => {
-    //console.log(people, duration, rest, count, focus)
-    //alert(`${people} hitting ${count} stations for ${duration} seconds with ${rest} seconds rest.`)
-  }
+  const selectedClasses = 'bg-teal-400 rounded shadow-md font-bold'
 </script>
 
-<div class="container h-full max-w-xl px-4 mx-auto overflow-y-auto">
-  <h1 class="mb-2 text-4xl">Home Workout</h1>
-  <ButtonGroupMulti title="Who's ready to feel the burn!" items={initials} bind:selected={participants} />
-  <ButtonGroup title="Duration" items={durations} bind:selected={duration} />
-  <ButtonGroup title="Rest" items={rests} bind:selected={rest} />
-  <ButtonGroup title="Exercises" items={counts} bind:selected={count} />
-  <ButtonGroup title="Activity Focus" items={focuses} bind:selected={focus} />
+<HorizontalGroup title="Who's ready to feel the burn!">
+  {#each people as item}
+    <label
+      class="grid w-full h-full bg-gray-200  place-items-center {$participants.includes(item) ? selectedClasses : ''}">
+      <input class="hidden" type="checkbox" bind:group={$participants} value={item} />{item.initials}
+    </label>
+  {/each}
+</HorizontalGroup>
 
-  <a
-    href="#/preview"
-    on:click={handleClick}
-    class="grid w-full h-16 mx-auto my-6 text-2xl font-bold text-white bg-gray-800 rounded-lg shadow-lg hover:nounderl place-content-center hover:no-underline visited:text-whit">Get
-    the Exercise Plan</a>
+<HorizontalGroup title="Duration">
+  {#each durations as item}
+    <label class="grid w-full h-full bg-gray-200 place-items-center {item === $duration ? selectedClasses : ''}">
+      <input class="hidden" type="radio" bind:group={$duration} value={item} />{item}
+    </label>
+  {/each}
+</HorizontalGroup>
+
+<HorizontalGroup title="Rest">
+  {#each rests as item}
+    <label class="grid w-full h-full bg-gray-200 place-items-center {item === $rest ? selectedClasses : ''}">
+      <input class="hidden" type="radio" bind:group={$rest} value={item} />{item}
+    </label>
+  {/each}
+</HorizontalGroup>
+
+<HorizontalGroup title="Exercises">
+  {#each counts as item}
+    <label class="grid w-full h-full bg-gray-200 place-items-center {item === $count ? selectedClasses : ''}">
+      <input class="hidden" type="radio" bind:group={$count} value={item} />{item}
+    </label>
+  {/each}
+</HorizontalGroup>
+
+<HorizontalGroup title="Focus">
+  {#each focuses as item}
+    <label class="grid w-full h-full bg-gray-200 place-items-center {item === $focus ? selectedClasses : ''}">
+      <input class="hidden" type="radio" bind:group={$focus} value={item} />{item}
+    </label>
+  {/each}
+</HorizontalGroup>
+
+<div class="grid grid-flow-col gap-2 mb-2 text-xl place-items-center auto-cols-fr">
+  <SecondaryLink href="#/">Back</SecondaryLink>
+  <PrimaryLink href="#/preview">Get My Plan</PrimaryLink>
 </div>

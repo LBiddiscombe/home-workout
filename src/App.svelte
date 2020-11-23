@@ -13,5 +13,8 @@
 </style>
 
 <main>
-  <Router {routes} />
+  <div class="container h-full max-w-xl px-4 mx-auto overflow-y-auto">
+    <h1 class="mb-2 text-4xl">Home Workout</h1>
+    <Router {routes} />
+  </div>
 </main>
