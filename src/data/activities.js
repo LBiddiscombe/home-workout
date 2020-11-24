@@ -29,6 +29,10 @@ const activities = [
   { name: 'Arm Swings Across Chest', groups: ['upper'] },
   { name: 'Arm Small Circles', groups: ['upper'] },
   { name: 'Arm Big Circles', groups: ['upper'] },
+  { name: 'Speed Bag Punches ', groups: ['upper', 'fast'] },
+  { name: 'Shadow Boxing ', groups: ['upper', 'lower', 'core', 'fast'] },
+  { name: 'Front Back Punches ', groups: ['upper', 'core', 'fast'] },
+  { name: 'Split-Step Swing', groups: ['upper', 'lower', 'fast'] },
 ]
 
-export default activities
+export { activities }
