@@ -1,10 +1,11 @@
 <script>
   import { onMount } from 'svelte'
   import PrimaryLink from '../components/PrimaryLink.svelte'
-  import { workout } from '../stores/workout'
+  import { workout, noSleep } from '../stores/workout'
 
   onMount(async () => {
     workout.complete()
+    if (noSleep._wakeLock) noSleep.disable()
   })
 </script>
 

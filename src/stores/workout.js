@@ -1,5 +1,10 @@
-import { writable } from 'svelte/store'
+import { get, writable } from 'svelte/store'
 import { activities } from '../data/activities'
+import NoSleep from '../nosleep.js'
+
+export const noSleep = new NoSleep()
+
+export const workoutIteration = writable(0)
 
 const initialValue = {
   participants: [],
@@ -8,7 +13,6 @@ const initialValue = {
   count: 10,
   focus: 'Full',
   exercises: [],
-  iteration: 0,
 }
 
 function pickExercises(focus, count) {
@@ -43,8 +47,9 @@ function createWorkout() {
         }
         const exercises = pickExercises(current.focus, current.count)
         // assign stations
+        const iteration = get(workoutIteration)
         const participants = current.participants.map((participant, index) => {
-          const station = (current.iteration + index) % current.count
+          const station = (iteration + index) % current.count
           return { ...participant, station }
         })
         const newWorkout = { ...current, exercises, participants }
@@ -53,9 +58,9 @@ function createWorkout() {
       }),
     increment: () =>
       update((current) => {
-        current.iteration += 1
+        const iteration = get(workoutIteration)
         const participants = current.participants.map((participant, index) => {
-          const station = (current.iteration + index) % current.count
+          const station = (iteration + index) % current.count
           return { ...participant, station }
         })
         return { ...current, participants }
