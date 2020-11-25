@@ -9,8 +9,9 @@
   let { participants, duration, rest, count, focus } = $workout
   let tags = participants.map((p) => p.name)
 
-  onMount(async () => {
+  onMount(() => {
     workout.init()
+    workout.placeParticipants($workout.count, 0)
   })
 </script>
 

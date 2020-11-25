@@ -1,10 +1,11 @@
 import { get, writable } from 'svelte/store'
 import { activities } from '../data/activities'
-import NoSleep from '../nosleep.js'
+import shuffle from '../utils/shuffle'
+import NoSleep from '../utils/nosleep.js'
 
 export const noSleep = new NoSleep()
 
-export const workoutIteration = writable(0)
+export const iteration = writable(0)
 
 const initialValue = {
   participants: [],
@@ -19,15 +20,6 @@ function pickExercises(focus, count) {
   const filtered = focus === 'Full' ? activities : activities.filter((a) => a.groups.includes(focus.toLowerCase()))
   const shuffled = shuffle(filtered)
   return shuffled.slice(0, count)
-}
-
-function shuffle(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[array[i], array[j]] = [array[j], array[i]]
-  }
-
-  return array
 }
 
 function createWorkout() {
@@ -46,24 +38,19 @@ function createWorkout() {
           return JSON.parse(localStorage.getItem('workout'))
         }
         const exercises = pickExercises(current.focus, current.count)
-        // assign stations
-        const iteration = get(workoutIteration)
-        const participants = current.participants.map((participant, index) => {
-          const station = (iteration + index) % current.count
-          return { ...participant, station }
-        })
-        const newWorkout = { ...current, exercises, participants }
+        const newWorkout = { ...current, exercises }
         localStorage.setItem('workout', JSON.stringify(newWorkout))
         return newWorkout
       }),
-    increment: () =>
+    placeParticipants: (totalStations, iteration) =>
       update((current) => {
-        const iteration = get(workoutIteration)
         const participants = current.participants.map((participant, index) => {
-          const station = (iteration + index) % current.count
+          const station = (iteration + index) % totalStations
           return { ...participant, station }
         })
-        return { ...current, participants }
+        const newWorkout = { ...current, participants }
+        localStorage.setItem('workout', JSON.stringify(newWorkout))
+        return newWorkout
       }),
     complete: () =>
       update((current) => {

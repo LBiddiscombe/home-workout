@@ -2,16 +2,6 @@ import { writable } from 'svelte/store'
 
 export const timerIndex = writable(0)
 
-let currentTimer = writable(0, () => {
-  let interval = setInterval(() => {
-    tick.update((value) => value + 1)
-  }, 1000)
-
-  return () => {
-    clearInterval(interval)
-  }
-})
-
 function createTimers() {
   const { subscribe, set } = writable([])
 
