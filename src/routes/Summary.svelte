@@ -9,4 +9,10 @@
   })
 </script>
 
+<h1 class="mb-2 text-4xl">Home Workout</h1>
+
+<div class="flex-grow">
+  <p>Display a summary of the workout here</p>
+</div>
+
 <PrimaryLink href="#/">Finish Workout</PrimaryLink>

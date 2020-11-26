@@ -15,6 +15,7 @@ function createTimers() {
         timers.push(rest)
       }
       set(timers)
+      timerIndex.set(0)
     },
   }
 }

@@ -34,12 +34,9 @@ function createWorkout() {
     subscribe,
     init: () =>
       update((current) => {
-        if (localStorage.getItem('workout')) {
-          return JSON.parse(localStorage.getItem('workout'))
-        }
         const exercises = pickExercises(current.focus, current.count)
         const newWorkout = { ...current, exercises }
-        localStorage.setItem('workout', JSON.stringify(newWorkout))
+        workout.save(newWorkout)
         return newWorkout
       }),
     placeParticipants: (totalStations, iteration) =>
@@ -49,7 +46,7 @@ function createWorkout() {
           return { ...participant, station }
         })
         const newWorkout = { ...current, participants }
-        localStorage.setItem('workout', JSON.stringify(newWorkout))
+        workout.save(newWorkout)
         return newWorkout
       }),
     complete: () =>
@@ -63,6 +60,9 @@ function createWorkout() {
         localStorage.removeItem('workout')
         return { ...initialValue }
       }),
+    save: (newWorkout) => {
+      localStorage.setItem('workout', JSON.stringify(newWorkout))
+    },
   }
 }
 

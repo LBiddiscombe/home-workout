@@ -1,17 +1,19 @@
 <script>
   import { onMount } from 'svelte'
-  import PrimaryLink from '../components/PrimaryLink.svelte'
+  import { push } from 'svelte-spa-router'
+  import SecondaryLink from '../components/SecondaryLink.svelte'
   import Tag from '../components/Tag.svelte'
   import Timer from '../components/Timer.svelte'
   import { workout, noSleep } from '../stores/workout'
   import { timers, timerIndex } from '../stores/timers'
 
-  const restMessages = ['Rest', 'Take a break', 'And breathe', 'Have a rest', 'Cool off a second']
-  const workMessages = ['Go for it!', 'Move it!', 'Lets Go!', 'Push through!', 'You got this!']
+  const restMessages = ['Rest', 'Take a break', 'And breathe', 'Have a rest', 'Cool off a sec', 'Take a breather']
+  const workMessages = ['Go for it!', 'Move it!', 'Lets Go!', 'Push through!', 'You got this!', 'Lets do this!']
 
   let started = false
   let timerComplete = false
   let resting = true
+  let lastRest = false
   let message = 'Get Ready...'
 
   onMount(() => {
@@ -24,8 +26,12 @@
 
   function moveNext() {
     timerIndex.update((t) => t + 1)
-    if ($timerIndex >= $timers.length) started = false
+    if ($timerIndex >= $timers.length) {
+      // workout complete
+      push('#/summary')
+    }
     resting = $timerIndex % 2 === 0
+    lastRest = $timerIndex === $timers.length - 1
     if (resting) {
       message = restMessages[rand(restMessages.length)]
       workout.placeParticipants($workout.count, $timerIndex / 2)
@@ -37,28 +43,44 @@
     noSleep.enable()
   }
 
-  $: if (timerComplete) {
-    timerComplete = false
-    moveNext()
+  $: {
+    if (timerComplete) {
+      timerComplete = false
+      moveNext()
+    }
   }
 </script>
 
-{#each $workout.participants as participant}
-  <div class="flex justify-center w-full my-4">
-    <Tag>{participant.name}</Tag>
-    {#if resting}<span class="ml-2 text-xl text-gray-900">next up </span>{/if}
-    <span class="ml-2 text-xl font-bold text-gray-900 uppercase">{$workout.exercises[participant.station].name}</span>
-  </div>
-{/each}
+<div class="w-full mt-2">
+  {#if resting}
+    <h2 class="text-2xl font-bold text-center text-white bg-green-700">Next up</h2>
+  {:else}
+    <h2 class="text-2xl font-bold text-center text-white bg-red-700">Now doing</h2>
+  {/if}
+  {#each $workout.participants as participant}
+    <div class="flex justify-center w-full mt-2">
+      <Tag>
+        {participant.name}
+        {#if lastRest}
+          <span class="ml-2 text-xl font-bold text-gray-900">Good job, you made it!</span>
+        {:else}
+          <span class="ml-2 text-xl font-bold text-gray-900">{$workout.exercises[participant.station].name}</span>
+        {/if}
+      </Tag>
+    </div>
+  {/each}
+</div>
 
-{#if started}
-  {#key $timerIndex}
-    <Timer duration={$timers[$timerIndex]} bind:complete={timerComplete} {resting}>{message}</Timer>
-  {/key}
-{:else}
-  <div class="flex justify-center w-full">
-    <button class="h-32 mx-auto text-5xl border-0" on:click={handleStart}>TAP TO START</button>
-  </div>
-{/if}
+<div class="flex flex-col justify-center flex-grow">
+  {#if started}
+    {#key $timerIndex}
+      <Timer duration={$timers[$timerIndex]} bind:complete={timerComplete} {resting}>{message}</Timer>
+    {/key}
+  {:else}
+    <div class="grid w-full place-items-center">
+      <button class="w-full h-64 mx-auto text-5xl border-0" on:click={handleStart}>TAP TO START</button>
+    </div>
+  {/if}
+</div>
 
-<PrimaryLink href="#/summary">Done</PrimaryLink>
+<SecondaryLink href="#/summary">Chicken out early!</SecondaryLink>

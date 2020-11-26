@@ -10,11 +10,14 @@
   /* purgecss end ignore */
 
   @tailwind utilities;
+
+  main {
+    height: calc(100vh - 7rem);
+  }
 </style>
 
 <main>
-  <div class="container h-full max-w-xl px-4 mx-auto overflow-y-auto">
-    <h1 class="mb-2 text-4xl">Home Workout</h1>
+  <div class="container flex flex-col h-full max-w-xl px-4 mx-auto overflow-y-auto">
     <Router {routes} />
   </div>
 </main>
