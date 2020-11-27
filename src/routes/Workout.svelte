@@ -53,9 +53,13 @@
 
 <div class="w-full mt-2">
   {#if resting}
-    <h2 class="text-2xl font-bold text-center text-white bg-green-700">Next up</h2>
+    <h2 class="py-2 text-2xl font-bold text-center text-white bg-green-700">
+      {`Next up ${Math.ceil(($timerIndex + 1) / 2)} of ${$workout.count}`}
+    </h2>
   {:else}
-    <h2 class="text-2xl font-bold text-center text-white bg-red-700">Now doing</h2>
+    <h2 class="py-2 text-2xl font-bold text-center text-white bg-red-700">
+      {`Now doing ${Math.ceil(($timerIndex + 1) / 2)} of ${$workout.count}`}
+    </h2>
   {/if}
   {#each $workout.participants as participant}
     <div class="flex justify-center w-full mt-2">
