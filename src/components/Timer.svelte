@@ -33,7 +33,9 @@
   {:else if resting}
     <span class="z-10 col-start-1 row-start-1 font-bold text-green-700 timer">{$countdown}</span>
   {:else}<span class="z-10 col-start-1 row-start-1 font-bold text-red-700 timer">{$countdown}</span>{/if}
-  <div class="flex justify-center w-full my-4">
-    <span in:fly={{ y: 30, duration: 300 }} class="text-4xl text-gray-900"><slot /></span>
-  </div>
+  {#if !$paused}
+    <div class="flex justify-center w-full my-4">
+      <span in:fly={{ y: 30, duration: 300 }} class="text-4xl text-gray-900"><slot /></span>
+    </div>
+  {/if}
 </div>
