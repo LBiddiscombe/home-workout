@@ -5,13 +5,12 @@
   import { durations, rests, counts, focuses, people } from '../data/options'
   import { workout } from '../stores/workout'
 
-  const selectedClasses = 'bg-teal-400 rounded shadow-md font-bold'
+  const selectedClasses = 'border-green-500 bg-gray-400 border-2 rounded shadow-lg font-bold'
 
   $: workout.save($workout)
 </script>
 
 <h1 class="mb-2 text-4xl">Home Workout</h1>
-
 <div class="flex-grow">
   <HorizontalGroup title="Who's ready to feel the burn!">
     {#each people as item}
