@@ -15,6 +15,7 @@
   let resting = true
   let lastRest = false
   let message = 'Get Ready...'
+  let isScreenLocked = false
 
   onMount(() => {
     timers.init($workout.duration, $workout.rest, $workout.count)
@@ -41,9 +42,11 @@
   function handleStart(e) {
     started = true
     noSleep.enable()
+    isScreenLocked = true
   }
 
   $: {
+    isScreenLocked = Boolean(noSleep._wakeLock)
     if (timerComplete) {
       timerComplete = false
       moveNext()
@@ -51,26 +54,31 @@
   }
 </script>
 
+{#if isScreenLocked}
+  <div class="absolute top-0 right-0 mx-4 my-2 ">💡</div>
+{/if}
+
 <div class="w-full mt-2">
   {#if resting}
     <h2 class="py-2 text-2xl font-bold text-center text-white bg-green-700">
-      {`Next up ${Math.ceil(($timerIndex + 1) / 2)} of ${$workout.count}`}
+      {`Next up ${Math.min(Math.ceil(($timerIndex + 1) / 2), $workout.count)} of ${$workout.count}`}
     </h2>
   {:else}
     <h2 class="py-2 text-2xl font-bold text-center text-white bg-red-700">
-      {`Now doing ${Math.ceil(($timerIndex + 1) / 2)} of ${$workout.count}`}
+      {`Now doing ${Math.min(Math.ceil(($timerIndex + 1) / 2), $workout.count)} of ${$workout.count}`}
     </h2>
   {/if}
   {#each $workout.participants as participant}
-    <div class="flex justify-center w-full mt-2">
-      <Tag>
-        {participant.name}
+    <div class="flex w-full pl-2 mt-2 align-middle">
+      <Tag classes={participant.classes}>{participant.name}</Tag>
+      <span>
         {#if lastRest}
-          <span class="ml-2 text-xl font-bold text-gray-900">Good job, you made it!</span>
+          <span class="flex-grow ml-2 text-xl font-bold text-gray-900">Good job, you made it!</span>
         {:else}
-          <span class="ml-2 text-xl font-bold text-gray-900">{$workout.exercises[participant.station].name}</span>
+          <span
+            class="flex-grow ml-2 text-xl font-bold text-gray-900">{$workout.exercises[participant.station].name}</span>
         {/if}
-      </Tag>
+      </span>
     </div>
   {/each}
 </div>
@@ -78,7 +86,9 @@
 <div class="flex flex-col justify-center flex-grow">
   {#if started}
     {#key $timerIndex}
-      <Timer duration={$timers[$timerIndex]} bind:complete={timerComplete} {resting}>{message}</Timer>
+      <Timer duration={$timers[$timerIndex]} bind:complete={timerComplete} {resting} first={$timerIndex === 0}>
+        {message}
+      </Timer>
     {/key}
   {:else}
     <div class="grid w-full place-items-center">

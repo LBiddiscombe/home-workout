@@ -7,7 +7,6 @@
   import { workout } from '../stores/workout'
 
   let { participants, duration, rest, count, focus } = $workout
-  let tags = participants.map((p) => p.name)
 
   onMount(() => {
     workout.init()
@@ -16,9 +15,9 @@
 </script>
 
 <div class="flex flex-col flex-grow">
-  <div class="flex justify-center gap-2 mx-auto my-4 text-xl">
-    {#each tags as tag}
-      <Tag>{tag}</Tag>
+  <div class="flex flex-wrap justify-center gap-2 mx-auto my-4 text-xl">
+    {#each participants as tag}
+      <Tag classes={tag.classes}>{tag.name}</Tag>
     {/each}
   </div>
 
