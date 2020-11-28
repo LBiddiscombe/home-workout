@@ -6,9 +6,7 @@
   import Timer from '../components/Timer.svelte'
   import { workout, noSleep } from '../stores/workout'
   import { timers, timerIndex } from '../stores/timers'
-
-  const restMessages = ['Rest', 'Take a break', 'And breathe', 'Have a rest', 'Cool off a sec', 'Take a breather']
-  const workMessages = ['Go for it!', 'Move it!', 'Lets Go!', 'Push through!', 'You got this!', 'Lets do this!']
+  import { restMessages, workMessages, completedMessages } from '../data/options'
 
   let started = false
   let timerComplete = false
@@ -81,7 +79,8 @@
       <Tag classes={participant.classes}>{participant.name}</Tag>
       <span>
         {#if lastRest}
-          <span class="flex-grow ml-2 text-xl font-bold text-gray-900">Good job, you made it!</span>
+          <span
+            class="flex-grow ml-2 text-xl font-bold text-gray-900">{completedMessages[rand(completedMessages.length)]}</span>
         {:else}
           <span
             class="flex-grow ml-2 text-xl font-bold text-gray-900">{$workout.exercises[participant.station].name}</span>
