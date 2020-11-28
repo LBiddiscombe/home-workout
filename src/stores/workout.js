@@ -34,39 +34,49 @@ function createWorkout() {
     subscribe,
     init: () =>
       update((current) => {
+        //console.log('init start', current)
         const exercises = pickExercises(current.focus, current.count)
-        const newWorkout = { ...current, exercises }
+        const newWorkout = { ...current, exercises, startDate: new Date() }
         workout.save(newWorkout)
+        //console.log('init end', newWorkout)
         return newWorkout
       }),
     placeParticipants: (totalStations, iteration) =>
       update((current) => {
+        //console.log('placeParticipants start', current)
         const participants = current.participants.map((participant, index) => {
           const station = (iteration + index) % totalStations
           return { ...participant, station }
         })
         const newWorkout = { ...current, participants }
         workout.save(newWorkout)
+        //console.log('placeParticipants end', newWorkout)
         return newWorkout
       }),
     complete: () =>
       update((current) => {
+        //console.log('completeStart', current)
         let history = []
         if (localStorage.getItem('history')) {
           history = JSON.parse(localStorage.getItem('history'))
         }
-        history.push({ date: new Date(), ...current })
+        history.push({ ...current, endDate: new Date() })
         localStorage.setItem('history', JSON.stringify(history))
         localStorage.removeItem('workout')
+        //console.log('complete end', { ...initialValue })
         return { ...initialValue }
       }),
     repeatLast: () => {
       const history = JSON.parse(localStorage.getItem('history'))
       const lastWorkout = history[history.length - 1]
+      lastWorkout.startDate = new Date()
+      lastWorkout.endDate = null
       workout.set(lastWorkout)
       workout.save(lastWorkout)
+      //console.log('repeatLast end', lastWorkout)
     },
     save: (newWorkout) => {
+      //console.log('save', newWorkout)
       localStorage.setItem('workout', JSON.stringify(newWorkout))
     },
   }
