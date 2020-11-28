@@ -60,6 +60,12 @@ function createWorkout() {
         localStorage.removeItem('workout')
         return { ...initialValue }
       }),
+    repeatLast: () => {
+      const history = JSON.parse(localStorage.getItem('history'))
+      const lastWorkout = history[history.length - 1]
+      workout.set(lastWorkout)
+      workout.save(lastWorkout)
+    },
     save: (newWorkout) => {
       localStorage.setItem('workout', JSON.stringify(newWorkout))
     },

@@ -63,7 +63,7 @@
 </script>
 
 {#if isScreenLocked}
-  <div class="absolute top-0 right-0 mx-5 my-3 text-4xl">💡</div>
+  <div class="absolute top-0 right-0 mx-6 my-4 text-4xl">💡</div>
 {/if}
 
 <div class="w-full mt-2">
