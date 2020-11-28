@@ -6,6 +6,7 @@
   import { workout } from '../stores/workout'
 
   const selectedClasses = 'border-gray-400 border-2 rounded shadow-lg font-bold'
+  const selectedColors = 'bg-red-300 bg-pink-300 bg-yellow-300 bg-green-300 bg-purple-300 bg-blue-300'
 
   $: workout.save($workout)
 </script>
