@@ -43,10 +43,18 @@
     started = true
     noSleep.enable()
     isScreenLocked = true
+    let audiosWeWantToUnlock = document.getElementsByTagName('audio')
+
+    if (audiosWeWantToUnlock) {
+      for (let audio of audiosWeWantToUnlock) {
+        audio.muted = true
+        audio.play()
+      }
+    }
   }
 
   $: {
-    isScreenLocked = Boolean(noSleep._wakeLock)
+    isScreenLocked = Boolean(noSleep.isEnabled)
     if (timerComplete) {
       timerComplete = false
       moveNext()
@@ -55,7 +63,7 @@
 </script>
 
 {#if isScreenLocked}
-  <div class="absolute top-0 right-0 mx-4 my-2 ">💡</div>
+  <div class="absolute top-0 right-0 mx-5 my-3 text-4xl">💡</div>
 {/if}
 
 <div class="w-full mt-2">

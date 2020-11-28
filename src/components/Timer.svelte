@@ -2,7 +2,6 @@
   import { onMount } from 'svelte'
   import { fly } from 'svelte/transition'
   import { countdown, paused } from '../stores/countdown'
-  import { noSleep } from '../stores/workout'
 
   export let duration = 10
   export let first = true
@@ -16,14 +15,12 @@
     startWhistle = document.getElementById('startwhistle')
     stopBuzzer = document.getElementById('stopbuzzer')
     if (resting && !first) {
+      stopBuzzer.muted = false
       stopBuzzer.play()
-      noSleep.enable()
-      console.log(noSleep._wakeLock)
     }
     if (!resting && !complete) {
+      startWhistle.muted = false
       startWhistle.play()
-      noSleep.enable()
-      console.log(noSleep._wakeLock)
     }
   })
 

@@ -5,7 +5,7 @@
 
   onMount(async () => {
     workout.complete()
-    if (noSleep._wakeLock) noSleep.disable()
+    if (noSleep._wakeLock || noSleep.noSleepVideo) noSleep.disable()
   })
 </script>
 
