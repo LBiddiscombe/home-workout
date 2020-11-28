@@ -6,20 +6,25 @@
 
   let { participants, duration, rest, count, focus } = $workout
 
-  onMount(async () => {
-    workout.complete()
+  onMount(() => {
     if (noSleep._wakeLock || noSleep.noSleepVideo) noSleep.disable()
   })
 
+  function finishWorkout() {
+    workout.complete()
+    push('#/')
+  }
+
   function loadLastWorkout() {
+    workout.complete()
     workout.repeatLast()
     push('#/workout')
   }
 </script>
 
-<h1 class="mb-2 text-4xl">Home Workout</h1>
+<h1 class="px-3 mb-2 text-4xl">Home Workout</h1>
 
-<div class="flex-grow">
+<div class="flex-grow px-3">
   <div class="flex flex-wrap justify-center gap-2 mx-auto my-4 text-xl">
     {#each participants as tag}
       <Tag classes={tag.classes}>{tag.name}</Tag>
@@ -50,13 +55,15 @@
 
   <button
     on:click={loadLastWorkout}
-    class="grid w-full h-16 mx-auto my-6 text-2xl font-bold text-white bg-green-800 rounded-lg shadow hover:nounderl place-content-center hover:no-underline visited:text-whit">
+    class="grid w-full h-16 mx-auto my-6 text-2xl font-bold text-white bg-green-800 border-0 rounded-lg shadow hover:nounderl place-content-center hover:no-underline visited:text-white">
     Repeat Last Workout
   </button>
 </div>
 
-<a
-  href="#/"
-  class="grid w-full h-16 mx-auto my-6 text-2xl font-bold text-white bg-red-800 border-0 rounded-lg shadow place-content-center hover:no-underline visited:text-whit">
-  Finish Workout
-</a>
+<div class="px-3">
+  <button
+    on:click={finishWorkout}
+    class="grid w-full h-16 my-6 text-2xl font-bold text-white bg-red-800 border-0 rounded-lg shadow place-content-center hover:no-underline visited:text-white">
+    Finish Workout
+  </button>
+</div>

@@ -14,8 +14,8 @@
   })
 </script>
 
-<div class="flex flex-col flex-grow">
-  <div class="flex flex-wrap justify-center gap-2 mx-auto my-4 text-xl">
+<div class="flex flex-col flex-grow px-3 mt-1">
+  <div class="flex flex-wrap justify-center mx-auto my-1 text-xl">
     {#each participants as tag}
       <Tag classes={tag.classes}>{tag.name}</Tag>
     {/each}
@@ -44,12 +44,12 @@
 
   <ul class="flex flex-col justify-center flex-grow">
     {#each $workout.exercises as exercise, index}
-      <li class="w-full text-2xl text-center list-none" style="border-bottom-width:0">{exercise.name}</li>
+      <li class="w-full text-center list-none" style="border-bottom-width:0">{exercise.name}</li>
     {/each}
   </ul>
 </div>
 
-<div class="grid grid-flow-col gap-2 mb-2 text-xl place-items-center auto-cols-fr">
+<div class="grid grid-flow-col gap-2 px-3 mb-2 text-xl place-items-center auto-cols-fr">
   <SecondaryLink href="#/setup">Back</SecondaryLink>
   <PrimaryLink href="#/workout">Let's Go</PrimaryLink>
 </div>

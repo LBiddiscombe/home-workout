@@ -17,7 +17,7 @@
 </style>
 
 <main>
-  <div class="container flex flex-col h-full max-w-xl px-4 mx-auto overflow-y-auto">
+  <div class="container flex flex-col h-full max-w-xl mx-auto overflow-y-auto">
     <Router {routes} />
   </div>
 </main>
