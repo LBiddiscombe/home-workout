@@ -15,7 +15,7 @@
   <HorizontalGroup title="Who's ready to feel the burn!">
     {#each people as item}
       <label
-        class="grid w-full h-full bg-gray-100 place-items-center {$workout.participants.findIndex((p) => p.name === item.name) !== -1 ? `${selectedClasses} ${item.classes}` : ''}">
+        class="grid w-full h-full bg-white place-items-center {$workout.participants.findIndex((p) => p.name === item.name) !== -1 ? `${selectedClasses} ${item.classes}` : ''}">
         <input class="hidden" type="checkbox" bind:group={$workout.participants} value={item} />{item.initials}
       </label>
     {/each}
@@ -24,7 +24,7 @@
   <HorizontalGroup title="Duration">
     {#each durations as item}
       <label
-        class="grid w-full h-full bg-gray-100  place-items-center {item === $workout.duration ? selectedClasses : ''}">
+        class="grid w-full h-full bg-white  place-items-center {item === $workout.duration ? selectedClasses : ''}">
         <input class="hidden" type="radio" bind:group={$workout.duration} value={item} />{item}
       </label>
     {/each}
@@ -32,7 +32,7 @@
 
   <HorizontalGroup title="Rest">
     {#each rests as item}
-      <label class="grid w-full h-full bg-gray-100 place-items-center {item === $workout.rest ? selectedClasses : ''}">
+      <label class="grid w-full h-full bg-white place-items-center {item === $workout.rest ? selectedClasses : ''}">
         <input class="hidden" type="radio" bind:group={$workout.rest} value={item} />{item}
       </label>
     {/each}
@@ -40,7 +40,7 @@
 
   <HorizontalGroup title="Exercises">
     {#each counts as item}
-      <label class="grid w-full h-full bg-gray-100 place-items-center {item === $workout.count ? selectedClasses : ''}">
+      <label class="grid w-full h-full bg-white place-items-center {item === $workout.count ? selectedClasses : ''}">
         <input class="hidden" type="radio" bind:group={$workout.count} value={item} />{item}
       </label>
     {/each}
@@ -48,7 +48,7 @@
 
   <HorizontalGroup title="Focus">
     {#each focuses as item}
-      <label class="grid w-full h-full bg-gray-100 place-items-center {item === $workout.focus ? selectedClasses : ''}">
+      <label class="grid w-full h-full bg-white place-items-center {item === $workout.focus ? selectedClasses : ''}">
         <input class="hidden" type="radio" bind:group={$workout.focus} value={item} />{item}
       </label>
     {/each}
